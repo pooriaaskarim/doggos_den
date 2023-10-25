@@ -5,7 +5,7 @@ class AppColors {
 
   static const lightColorScheme = ColorScheme(
     brightness: Brightness.light,
-    primary: Color(0xFF006780),
+    primary: Color(0xFF354C56),
     onPrimary: Color(0xFFFFFFFF),
     primaryContainer: Color(0xFFB8EAFF),
     onPrimaryContainer: Color(0xFF001F28),
@@ -39,8 +39,8 @@ class AppColors {
 
   static const darkColorScheme = ColorScheme(
     brightness: Brightness.dark,
-    primary: Color(0xFF5DD4FC),
-    onPrimary: Color(0xFF003544),
+    primary: Color(0xFF354C56),
+    onPrimary: Color(0xFF757979),
     primaryContainer: Color(0xFF004D61),
     onPrimaryContainer: Color(0xFFB8EAFF),
     secondary: Color(0xFFB3CAD4),
@@ -55,7 +55,7 @@ class AppColors {
     errorContainer: Color(0xFF93000A),
     onError: Color(0xFF690005),
     onErrorContainer: Color(0xFFFFDAD6),
-    background: Color(0xFF191C1D),
+    background: Color(0xFF292E31),
     onBackground: Color(0xFFE1E3E4),
     outline: Color(0xFF8A9296),
     onInverseSurface: Color(0xFF191C1D),

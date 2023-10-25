@@ -21,7 +21,7 @@ class LocalRepository {
   bool get _isOpen => Hive.isBoxOpen(_instanceName);
 
   @protected
-  Future<Box<M>> openDb<M>() async => _isOpen
+  Future<Box<M>> _openDb<M>() async => _isOpen
       ? Hive.box<M>(_instanceName)
       : await Hive.openBox<M>(
           _instanceName,
@@ -32,14 +32,14 @@ class LocalRepository {
   // Implementation
 
   Future<String?> readTheme() async {
-    final Box<String> db = await openDb<String>();
+    final Box<String> db = await _openDb<String>();
     final user = db.get('theme');
     await db.close();
     return user;
   }
 
   Future<void> persistTheme(final ThemeData theme) async {
-    final Box<String> db = await openDb<String>();
+    final Box<String> db = await _openDb<String>();
     await db.put(
       'theme',
       theme.brightness == Brightness.light ? 'light' : 'dark',
@@ -48,7 +48,7 @@ class LocalRepository {
   }
 
   Future<void> clearTheme() async {
-    final Box<String> db = await openDb<String>();
+    final Box<String> db = await _openDb<String>();
     await db.delete('Theme');
     await db.close();
   }

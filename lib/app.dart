@@ -8,6 +8,7 @@ import 'infrastructure/config/routes/app.route_names.dart';
 import 'infrastructure/config/routes/app.routes.dart';
 import 'infrastructure/config/theme/app.theme.dart';
 import 'infrastructure/utils/app.utils.dart';
+import 'presentation/home/screen.home.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -40,6 +41,7 @@ class _AppState extends State<App> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    App.theme = _fallbackTheme;
   }
 
   @override
@@ -85,7 +87,7 @@ class _AppState extends State<App> {
           //     ? ThemeMode.dark
           //     : ThemeMode.light,
           // navigatorKey: Chartix._globalNavigatorKey,
-          home: const Placeholder(),
+          home: const Home(),
           onGenerateRoute: (final routeSettings) => AppRoutes.getRoute(
             routeSettings.name ?? AppRouteNames.notFound,
           ),

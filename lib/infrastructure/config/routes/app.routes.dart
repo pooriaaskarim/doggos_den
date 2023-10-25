@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../presentation/home/screen.home.dart';
 import 'app.route_names.dart';
 
 class AppRoutes {
@@ -10,5 +11,9 @@ class AppRoutes {
           ? routes[routeName]!()
           : routes[AppRouteNames.notFound]!();
 
-  static Map<String, MaterialPageRoute Function()> routes = {};
+  static Map<String, MaterialPageRoute Function()> routes = {
+    AppRouteNames.home: () => MaterialPageRoute(
+          builder: (final context) => const Home(),
+        ),
+  };
 }

@@ -8,26 +8,17 @@ class AppUtils {
 
   static const double borderRadius = 5.0;
 
-  /// Relative path to where Avatar Assets reside
-  static const String avatarAssetsPath = 'lib/assets/avatars/';
-
-  /// Relative path to where Currency Flags Assets reside
-  static const String currencyAssetsPath = 'lib/assets/currency_flags/';
-
   /// Relative path to where Image Assets reside
-  static const String imageAssetsPath = 'lib/assets/images/';
-
-  /// Relative path to where Icon Assets reside
-  static const String iconAssetsPath = 'lib/assets/icons/';
+  static const String imageAssetsPath = 'assets/images/';
 
   ///returns a SizedBox of height [size] with a default of AppSizes.points_16
-  static Widget verticalSpacer({final double size = AppSizes.points_16}) =>
+  static Widget verticalSpacer([final double size = AppSizes.points_16]) =>
       SizedBox(
         height: size,
       );
 
   ///returns a SizedBox of width [size] with a default of AppSizes.points_16
-  static Widget horizontalSpacer({final double size = AppSizes.points_16}) =>
+  static Widget horizontalSpacer([final double size = AppSizes.points_16]) =>
       SizedBox(
         width: size,
       );

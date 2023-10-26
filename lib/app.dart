@@ -17,8 +17,6 @@ class App extends StatefulWidget {
       GlobalKey<NavigatorState>();
   static NavigatorState? navigator = _globalNavigatorKey.currentState;
 
-  // static late ThemeData theme;
-
   static void rebuildApp(final BuildContext context) {
     context.findAncestorStateOfType<_AppState>()?.rebuildApp();
   }

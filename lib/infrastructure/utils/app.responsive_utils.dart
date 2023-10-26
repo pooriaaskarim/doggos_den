@@ -28,8 +28,8 @@ extension ResponsiveExtension on Device {
           : (width >= 480 && width < 900)
               ? width / 6
               : (width >= 900 && width < 1200)
-                  ? width / 4
-                  : width / 3,
+                  ? width / 7
+                  : width / 8,
     );
   }
 

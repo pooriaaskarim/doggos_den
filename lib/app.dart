@@ -17,7 +17,7 @@ class App extends StatefulWidget {
       GlobalKey<NavigatorState>();
   static NavigatorState? navigator = _globalNavigatorKey.currentState;
 
-  static late ThemeData theme;
+  // static late ThemeData theme;
 
   static void rebuildApp(final BuildContext context) {
     context.findAncestorStateOfType<_AppState>()?.rebuildApp();
@@ -28,24 +28,15 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  ThemeData get _fallbackTheme =>
-      (MediaQuery.of(context).platformBrightness == Brightness.light)
-          ? AppTheme.lightTheme
-          : AppTheme.darkTheme;
-
   @override
   void initState() {
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    App.theme = _fallbackTheme;
+    BlocProvider.of<AppBloc>(context).add(InitializeApp());
   }
 
   @override
   void dispose() {
+    BlocProvider.of<AppBloc>(context).close();
     super.dispose();
   }
 
@@ -56,37 +47,15 @@ class _AppState extends State<App> {
   }
 
   @override
-  Widget build(final BuildContext context) => BlocListener<AppBloc, AppState>(
-        listenWhen: (final previous, final current) =>
-            previous.runtimeType != current.runtimeType,
-        listener: (final context, final appState) async {
-          // if (appState is AppAuthenticatedState) {
-          //   _settingsBloc.add(
-          //     SettingsAuthenticateEvent(
-          //       configurations: appState.user!.configurations,
-          //     ),
-          //   );
-          //   _packageBloc
-          //       .add(AuthenticatePackageEvent(package: appState.user!.package));
-          // } else if (appState is AppUnAuthenticatedState) {
-          //   _packageBloc.add(const UnAuthenticatePackageEvent());
-          //   _settingsBloc.add(
-          //     SettingsUnAuthenticateEvent(
-          //       context: context,
-          //     ),
-          //   );
-          // }
-        },
-        child: MaterialApp(
+  Widget build(final BuildContext context) => BlocBuilder<AppBloc, AppState>(
+        buildWhen: (final previous, final current) =>
+            previous.themeMode != current.themeMode,
+        builder: (final context, final state) => MaterialApp(
           title: "Doggo's Den",
-          theme: App.theme,
+          theme: AppThemes.lightTheme,
+          darkTheme: AppThemes.darkTheme,
+          themeMode: state.themeMode,
           navigatorKey: App._globalNavigatorKey,
-          // theme: ChartixTheme.light.data,
-          // darkTheme: userDarkTheme(state)?.data,
-          // themeMode: (userDarkTheme(state) != null)
-          //     ? ThemeMode.dark
-          //     : ThemeMode.light,
-          // navigatorKey: Chartix._globalNavigatorKey,
           home: const Home(),
           onGenerateRoute: (final routeSettings) => AppRoutes.getRoute(
             routeSettings.name ?? AppRouteNames.notFound,

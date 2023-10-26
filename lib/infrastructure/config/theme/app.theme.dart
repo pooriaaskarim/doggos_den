@@ -14,8 +14,8 @@ import 'components_theme/app.snack_bar_theme_data.dart';
 import 'components_theme/app.tab_bar_theme_data.dart';
 import 'components_theme/app.text_button_theme_data.dart';
 
-class AppTheme {
-  AppTheme._();
+class AppThemes {
+  AppThemes._();
 
   /// Light Theme
   static ThemeData lightTheme = ThemeData(

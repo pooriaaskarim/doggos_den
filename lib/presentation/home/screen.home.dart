@@ -7,12 +7,18 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../app.dart';
 import '../../application/app_bloc/app_bloc.dart';
+import '../../domain/breed.dart';
 import '../../infrastructure/config/routes/app.route_names.dart';
+import '../../infrastructure/config/theme/app.elevations.dart';
 import '../../infrastructure/config/theme/app.fonts.dart';
 import '../../infrastructure/utils/app.sizes.dart';
 import '../../infrastructure/utils/app.utils.dart';
 
-part 'widgets/header/Footer.dart';
+part 'widgets/body/body.dart';
+part 'widgets/body/widgets/breeds_list.dart';
+part 'widgets/body/widgets/images_list.dart';
+part 'widgets/body/widgets/sub_breeds_list.dart';
+part 'widgets/footer/footer.dart';
 part 'widgets/header/header.dart';
 part 'widgets/header/widgets/button.theme_toggle.dart';
 
@@ -28,7 +34,7 @@ class Home extends StatelessWidget {
           ],
           body: Padding(
             padding: AppUtils.responsiveHorizontalPadding(context),
-            child: const Placeholder(),
+            child: const Body(),
           ),
         ),
         bottomNavigationBar: const Footer(),

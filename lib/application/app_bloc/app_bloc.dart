@@ -71,4 +71,48 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     emit(state.copyWith(themeMode: themeMode));
     await _localRepository.persistThemeMode(state.themeMode);
   }
+
+  FutureOr<List<String>> getAllImagesByBreed(final String breed) async {
+    final images = await _doggoRepository.getAllImagesByBreed(breed);
+    return images.fold(
+      (final l) => throw l,
+      (final r) =>
+          (r.data['message'] as List<dynamic>).map((e) => e as String).toList(),
+    );
+  }
+
+  FutureOr<List<String>> getRandomByBreed(final String breed) async {
+    final images = await _doggoRepository.getRandomByBreed(breed);
+    return images.fold(
+      (final l) => throw l,
+      (final r) =>
+          (r.data['message'] as List<dynamic>).map((e) => e as String).toList(),
+    );
+  }
+
+  FutureOr<List<String>> getAllImagesBySubBreed(
+    final String breed,
+    final String subBreed,
+  ) async {
+    final images =
+        await _doggoRepository.getAllImagesBySubBreed(breed, subBreed);
+    return images.fold(
+      (final l) => throw l,
+      (final r) =>
+          (r.data['message'] as List<dynamic>).map((e) => e as String).toList(),
+    );
+  }
+
+  FutureOr<List<String>> getRandomBySubBreed(
+    final String breed,
+    final String subBreed,
+  ) async {
+    final images = await _doggoRepository.getRandomBySubBreed(breed, subBreed);
+
+    return images.fold(
+      (final l) => throw l,
+      (final r) =>
+          (r.data['message'] as List<dynamic>).map((e) => e as String).toList(),
+    );
+  }
 }

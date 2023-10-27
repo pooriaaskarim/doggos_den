@@ -36,19 +36,20 @@ class Footer extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                    text: 'Dog.Ceo',
-                    style: themeData.textTheme.labelLarge?.copyWith(
-                      color: themeData.colorScheme.onBackground,
-                      decoration: TextDecoration.underline,
-                      fontWeight: AppFonts.bold,
-                    ),
-                    recognizer: TapGestureRecognizer()..onTap = () {}),
+                  text: 'Dog.Ceo',
+                  style: themeData.textTheme.labelLarge?.copyWith(
+                    color: themeData.colorScheme.onBackground,
+                    decoration: TextDecoration.underline,
+                    fontWeight: AppFonts.bold,
+                  ),
+                  recognizer: TapGestureRecognizer()..onTap = () {},
+                ),
               ],
             ),
           ),
           AppUtils.horizontalSpacer(),
           SvgPicture.asset(
-            '${AppUtils.imageAssetsPath}doggo.svg',
+            '${AppUtils.imageAssetsPath}dog_ceo.svg',
             height: AppSizes.points_32,
             colorFilter: ColorFilter.mode(
               themeData.colorScheme.onBackground,

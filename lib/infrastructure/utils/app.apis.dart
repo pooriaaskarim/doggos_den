@@ -32,7 +32,7 @@ class AppApis {
   }) {
     assert(count >= 1 && count <= 50, 'Can return up to 50 images max');
 
-    return '$_breedBase/$breed/images/random${(count > 1) ? '/$count' : ''}';
+    return '$_breedBase/$breed/images/random/$count';
   }
 
   /// Fetch All Images by Sub-Breed
@@ -57,6 +57,6 @@ class AppApis {
   }) {
     assert(count >= 1 && count <= 50, 'Can return up to 50 images max');
 
-    return '$_breedBase/$breed/$subBreed/images/random${(count > 1) ? '/$count' : ''}';
+    return '$_breedBase/$breed/$subBreed/images/random/$count';
   }
 }

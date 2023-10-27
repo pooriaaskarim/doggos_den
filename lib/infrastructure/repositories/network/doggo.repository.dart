@@ -12,8 +12,38 @@ class DoggoRepository extends NetworkRepository {
       );
 
   Future<Either<DioException, Response>> getAllImagesByBreed(
-          final String breed) async =>
+    final String breed,
+  ) async =>
       get(
         AppApis.getAllImagesByBreed(breed),
+      );
+
+  Future<Either<DioException, Response>> getRandomByBreed(
+    final String breed,
+  ) async =>
+      get(
+        AppApis.getRandomImagesByBreed(breed),
+      );
+
+  Future<Either<DioException, Response>> getAllImagesBySubBreed(
+    final String breed,
+    final String subBreed,
+  ) async =>
+      get(
+        AppApis.getAllImagesBySubBreed(
+          breed,
+          subBreed,
+        ),
+      );
+
+  Future<Either<DioException, Response>> getRandomBySubBreed(
+    final String breed,
+    final String subBreed,
+  ) async =>
+      get(
+        AppApis.getRandomImagesBySubBreed(
+          breed,
+          subBreed,
+        ),
       );
 }

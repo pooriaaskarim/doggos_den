@@ -8,7 +8,7 @@ import 'infrastructure/config/routes/app.route_names.dart';
 import 'infrastructure/config/routes/app.routes.dart';
 import 'infrastructure/config/theme/app.theme.dart';
 import 'infrastructure/utils/app.utils.dart';
-import 'presentation/home/screen.home.dart';
+import 'presentation/splash/screen.splash.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -18,7 +18,7 @@ class App extends StatefulWidget {
   static NavigatorState? navigator = _globalNavigatorKey.currentState;
 
   static void rebuildApp(final BuildContext context) {
-    context.findAncestorStateOfType<_AppState>()?.rebuildApp();
+    context.findAncestorStateOfType<_AppState>()?.rebuildApp(context);
   }
 
   @override
@@ -38,7 +38,7 @@ class _AppState extends State<App> {
     super.dispose();
   }
 
-  void rebuildApp() {
+  void rebuildApp(final BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((final _) {
       AppUtils.rebuildDescendantChildren(context);
     });
@@ -54,7 +54,7 @@ class _AppState extends State<App> {
           darkTheme: AppThemes.darkTheme,
           themeMode: state.themeMode,
           navigatorKey: App._globalNavigatorKey,
-          home: const Home(),
+          home: const SplashScreen(),
           onGenerateRoute: (final routeSettings) => AppRoutes.getRoute(
             routeSettings.name ?? AppRouteNames.notFound,
           ),

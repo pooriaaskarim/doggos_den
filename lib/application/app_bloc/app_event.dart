@@ -9,6 +9,11 @@ class InitializeApp extends AppEvent {
   List<Object?> get props => [];
 }
 
+class FetchDoggos extends AppEvent {
+  @override
+  List<Object?> get props => [];
+}
+
 class ToggleThemeMode extends AppEvent {
   @override
   List<Object?> get props => [];

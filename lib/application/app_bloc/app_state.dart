@@ -18,65 +18,80 @@ abstract class AppState extends Equatable {
       ];
 }
 
-class AppInitializingState extends AppState {
-  const AppInitializingState({
+class InitializingState extends AppState {
+  const InitializingState({
     super.breeds = const [],
     super.themeMode = ThemeMode.system,
   });
 
   @override
-  AppInitializingState copyWith(
+  InitializingState copyWith(
           {final List<Breed>? breeds, final ThemeMode? themeMode}) =>
-      AppInitializingState(
+      InitializingState(
         breeds: breeds ?? this.breeds,
         themeMode: themeMode ?? this.themeMode,
       );
 }
 
-abstract class AppInitializedState extends AppState {
-  const AppInitializedState({
-    required super.breeds,
-    required super.themeMode,
+class FetchingDoggosState extends AppState {
+  const FetchingDoggosState({
+    super.breeds = const [],
+    super.themeMode = ThemeMode.system,
   });
-}
 
-class AppLoadedState extends AppInitializedState {
-  const AppLoadedState({
-    required super.breeds,
-    required super.themeMode,
-  });
   @override
-  AppLoadedState copyWith(
+  FetchingDoggosState copyWith(
           {final List<Breed>? breeds, final ThemeMode? themeMode}) =>
-      AppLoadedState(
+      FetchingDoggosState(
         breeds: breeds ?? this.breeds,
         themeMode: themeMode ?? this.themeMode,
       );
 }
 
-class AppLoadingState extends AppInitializedState {
-  const AppLoadingState({
+abstract class InitializedState extends AppState {
+  const InitializedState({
+    required super.breeds,
+    required super.themeMode,
+  });
+}
+
+class LoadedState extends InitializedState {
+  const LoadedState({
     required super.breeds,
     required super.themeMode,
   });
   @override
-  AppLoadingState copyWith(
+  LoadedState copyWith(
           {final List<Breed>? breeds, final ThemeMode? themeMode}) =>
-      AppLoadingState(
+      LoadedState(
         breeds: breeds ?? this.breeds,
         themeMode: themeMode ?? this.themeMode,
       );
 }
 
-class AppErrorState extends AppInitializedState {
-  const AppErrorState({
+class LoadingState extends InitializedState {
+  const LoadingState({
     required super.breeds,
     required super.themeMode,
   });
   @override
-  AppErrorState copyWith(
+  LoadingState copyWith(
           {final List<Breed>? breeds, final ThemeMode? themeMode}) =>
-      AppErrorState(
+      LoadingState(
+        breeds: breeds ?? this.breeds,
+        themeMode: themeMode ?? this.themeMode,
+      );
+}
+
+class ErrorState extends AppState {
+  const ErrorState({
+    required super.breeds,
+    required super.themeMode,
+  });
+  @override
+  ErrorState copyWith(
+          {final List<Breed>? breeds, final ThemeMode? themeMode}) =>
+      ErrorState(
         breeds: breeds ?? this.breeds,
         themeMode: themeMode ?? this.themeMode,
       );

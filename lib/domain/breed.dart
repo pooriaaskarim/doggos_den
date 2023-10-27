@@ -6,7 +6,6 @@ abstract class BreedBase extends Equatable {
   });
 
   final String name;
-
   @override
   List<Object?> get props => [
         name,
@@ -17,6 +16,15 @@ class Breed extends BreedBase {
   const Breed({required super.name, required this.subBreeds});
 
   final List<SubBreed> subBreeds;
+
+  @override
+  String toString() {
+    return '''Breed{
+    name:$name,
+    subBreeds: $subBreeds
+    }
+    ''';
+  }
 }
 
 class SubBreed extends BreedBase {

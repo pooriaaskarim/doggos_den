@@ -7,13 +7,9 @@ import 'package:path_provider/path_provider.dart';
 const _themeModeKey = 'themeMode';
 
 class LocalRepository {
-  factory LocalRepository.instance() => _instance;
-
-  LocalRepository._() {
+  LocalRepository() {
     Hive.initFlutter();
   }
-
-  static final LocalRepository _instance = LocalRepository._();
 
   @protected
   String get _instanceName => 'LocalStorage';
@@ -28,8 +24,6 @@ class LocalRepository {
           _instanceName,
           path: (await getApplicationDocumentsDirectory()).path,
         );
-
-  // Implementation
 
   Future<ThemeMode> getThemeMode() async {
     final Box db = await _openDb();

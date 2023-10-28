@@ -1,7 +1,10 @@
 part of 'app_bloc.dart';
 
 abstract class AppState extends Equatable {
-  const AppState({required this.breeds, required this.themeMode});
+  const AppState({
+    required this.breeds,
+    required this.themeMode,
+  });
 
   final List<Breed> breeds;
   final ThemeMode themeMode;
@@ -13,7 +16,6 @@ abstract class AppState extends Equatable {
 
   @override
   List<Object> get props => [
-        breeds,
         themeMode,
       ];
 }
@@ -40,8 +42,10 @@ class FetchingDoggosState extends AppState {
   });
 
   @override
-  FetchingDoggosState copyWith(
-          {final List<Breed>? breeds, final ThemeMode? themeMode}) =>
+  FetchingDoggosState copyWith({
+    final List<Breed>? breeds,
+    final ThemeMode? themeMode,
+  }) =>
       FetchingDoggosState(
         breeds: breeds ?? this.breeds,
         themeMode: themeMode ?? this.themeMode,
@@ -61,8 +65,10 @@ class LoadedState extends InitializedState {
     required super.themeMode,
   });
   @override
-  LoadedState copyWith(
-          {final List<Breed>? breeds, final ThemeMode? themeMode}) =>
+  LoadedState copyWith({
+    final List<Breed>? breeds,
+    final ThemeMode? themeMode,
+  }) =>
       LoadedState(
         breeds: breeds ?? this.breeds,
         themeMode: themeMode ?? this.themeMode,
@@ -74,9 +80,12 @@ class LoadingState extends InitializedState {
     required super.breeds,
     required super.themeMode,
   });
+
   @override
-  LoadingState copyWith(
-          {final List<Breed>? breeds, final ThemeMode? themeMode}) =>
+  LoadingState copyWith({
+    final List<Breed>? breeds,
+    final ThemeMode? themeMode,
+  }) =>
       LoadingState(
         breeds: breeds ?? this.breeds,
         themeMode: themeMode ?? this.themeMode,
@@ -89,8 +98,10 @@ class ErrorState extends AppState {
     required super.themeMode,
   });
   @override
-  ErrorState copyWith(
-          {final List<Breed>? breeds, final ThemeMode? themeMode}) =>
+  ErrorState copyWith({
+    final List<Breed>? breeds,
+    final ThemeMode? themeMode,
+  }) =>
       ErrorState(
         breeds: breeds ?? this.breeds,
         themeMode: themeMode ?? this.themeMode,

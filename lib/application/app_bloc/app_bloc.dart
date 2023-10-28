@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-import '../../domain/breed.dart';
+import '../../domain/models/breed.dart';
 import '../../infrastructure/repositories/local/repository.local.dart';
 import '../../infrastructure/repositories/network/doggo.repository.dart';
 
@@ -22,10 +22,11 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     on<FetchDoggos>(onFetchDoggos);
     on<ToggleThemeMode>(onToggleThemeMode);
   }
+
   final LocalRepository _localRepository;
   final DoggoRepository _doggoRepository;
 
-  Future<FutureOr<void>> onAppInitialization(
+  FutureOr<void> onAppInitialization(
     final InitializeApp event,
     final Emitter<AppState> emit,
   ) async {
@@ -60,7 +61,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     emit(LoadedState(breeds: breedsList, themeMode: state.themeMode));
   }
 
-  Future<FutureOr<void>> onToggleThemeMode(
+  FutureOr<void> onToggleThemeMode(
     final ToggleThemeMode event,
     final Emitter<AppState> emit,
   ) async {
@@ -70,49 +71,5 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
     emit(state.copyWith(themeMode: themeMode));
     await _localRepository.persistThemeMode(state.themeMode);
-  }
-
-  FutureOr<List<String>> getAllImagesByBreed(final String breed) async {
-    final images = await _doggoRepository.getAllImagesByBreed(breed);
-    return images.fold(
-      (final l) => throw l,
-      (final r) =>
-          (r.data['message'] as List<dynamic>).map((e) => e as String).toList(),
-    );
-  }
-
-  FutureOr<List<String>> getRandomByBreed(final String breed) async {
-    final images = await _doggoRepository.getRandomByBreed(breed);
-    return images.fold(
-      (final l) => throw l,
-      (final r) =>
-          (r.data['message'] as List<dynamic>).map((e) => e as String).toList(),
-    );
-  }
-
-  FutureOr<List<String>> getAllImagesBySubBreed(
-    final String breed,
-    final String subBreed,
-  ) async {
-    final images =
-        await _doggoRepository.getAllImagesBySubBreed(breed, subBreed);
-    return images.fold(
-      (final l) => throw l,
-      (final r) =>
-          (r.data['message'] as List<dynamic>).map((e) => e as String).toList(),
-    );
-  }
-
-  FutureOr<List<String>> getRandomBySubBreed(
-    final String breed,
-    final String subBreed,
-  ) async {
-    final images = await _doggoRepository.getRandomBySubBreed(breed, subBreed);
-
-    return images.fold(
-      (final l) => throw l,
-      (final r) =>
-          (r.data['message'] as List<dynamic>).map((e) => e as String).toList(),
-    );
   }
 }

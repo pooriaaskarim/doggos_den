@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-import '../../utils/app.apis.dart';
+import '../../config/app.apis.dart';
 import 'i.interface.repository.dart';
 
 class DoggoRepository extends NetworkRepository {

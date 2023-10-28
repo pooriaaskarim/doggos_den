@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 abstract class NetworkRepository {
   NetworkRepository();
@@ -11,21 +10,8 @@ abstract class NetworkRepository {
     BaseOptions(
       connectTimeout: const Duration(seconds: 30),
       receiveTimeout: const Duration(seconds: 30),
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
     ),
-  )..interceptors.addAll([
-      PrettyDioLogger(
-        responseHeader: true,
-        responseBody: true,
-        requestHeader: true,
-        requestBody: true,
-        request: true,
-        error: true,
-      ),
-    ]);
+  );
 
   Future<Either<DioException, Response>> get<T>(
     final String api, {

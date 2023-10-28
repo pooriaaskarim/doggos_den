@@ -42,7 +42,10 @@ class Footer extends StatelessWidget {
                     decoration: TextDecoration.underline,
                     fontWeight: AppFonts.bold,
                   ),
-                  recognizer: TapGestureRecognizer()..onTap = () {},
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      launchUrl(Uri.https('dog.ceo'));
+                    },
                 ),
               ],
             ),
@@ -50,7 +53,7 @@ class Footer extends StatelessWidget {
           AppUtils.horizontalSpacer(),
           SvgPicture.asset(
             '${AppUtils.imageAssetsPath}dog_ceo.svg',
-            height: AppSizes.points_32,
+            height: AppSizes.points_24,
             colorFilter: ColorFilter.mode(
               themeData.colorScheme.onBackground,
               BlendMode.srcIn,

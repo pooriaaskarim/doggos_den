@@ -1,16 +1,19 @@
 library home;
 
+import 'dart:async';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import '../../app.dart';
 import '../../application/app_bloc/app_bloc.dart';
-import '../../domain/breed.dart';
-import '../../infrastructure/config/routes/app.route_names.dart';
+import '../../application/doggo_cubit/doggo_cubit.dart';
+import '../../domain/models/breed.dart';
 import '../../infrastructure/config/theme/app.elevations.dart';
 import '../../infrastructure/config/theme/app.fonts.dart';
+import '../../infrastructure/repositories/network/doggo.repository.dart';
 import '../../infrastructure/utils/app.sizes.dart';
 import '../../infrastructure/utils/app.utils.dart';
 
@@ -26,9 +29,13 @@ class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
-  Widget build(final BuildContext context) => Scaffold(
+  Widget build(final BuildContext context) {
+    final scrollController = ScrollController();
+
+    return SafeArea(
+      child: Scaffold(
         body: NestedScrollView(
-          controller: ScrollController(),
+          controller: scrollController,
           headerSliverBuilder: (final context, final innerBoxIsScrolled) => [
             const HomeHeader(),
           ],
@@ -38,5 +45,7 @@ class Home extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: const Footer(),
-      );
+      ),
+    );
+  }
 }

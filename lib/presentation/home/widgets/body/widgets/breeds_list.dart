@@ -5,19 +5,21 @@ class BreedsList extends StatelessWidget {
     required this.breeds,
     super.key,
   });
-
   final List<Breed> breeds;
+
   @override
   Widget build(final BuildContext context) {
     final themeData = Theme.of(context);
+    final ScrollController scrollController = ScrollController();
 
     return Material(
       elevation: AppElevations.level_2,
       child: Ink(
-        padding: const EdgeInsets.symmetric(horizontal: AppSizes.points_8),
+        padding: const EdgeInsets.symmetric(horizontal: AppSizes.points_16),
         decoration: BoxDecoration(color: themeData.colorScheme.background),
         child: ListView.builder(
           shrinkWrap: true,
+          controller: scrollController,
           itemCount: breeds.length,
           itemBuilder: (final context, final index) => Container(
             width: AppSizes.points_64 * 2,
@@ -25,10 +27,8 @@ class BreedsList extends StatelessWidget {
             child: TextButton(
               onPressed: hasSubBreed(breeds, index)
                   ? () {
-                      Body.state(context)?.setSubBreedsList(
-                        subBreeds: breeds[index].subBreeds,
-                        activeBreed: breeds[index].name,
-                      );
+                      BlocProvider.of<DoggoBloc>(context)
+                          .setBreed(breeds[index]);
                     }
                   : null,
               child: Row(
@@ -43,12 +43,8 @@ class BreedsList extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () async {
-                      Body.state(context)?.setImages(
-                        await BlocProvider.of<AppBloc>(context)
-                            .getAllImagesByBreed(
-                          breeds[index].name,
-                        ),
-                      );
+                      await BlocProvider.of<DoggoBloc>(context)
+                          .fetchAllImagesByBreed(breeds[index]);
                     },
                     icon: const Tooltip(
                       waitDuration: Duration(milliseconds: 450),
@@ -58,12 +54,8 @@ class BreedsList extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () async {
-                      Body.state(context)?.setImages(
-                        await BlocProvider.of<AppBloc>(context)
-                            .getRandomByBreed(
-                          breeds[index].name,
-                        ),
-                      );
+                      await BlocProvider.of<DoggoBloc>(context)
+                          .fetchRandomByBreed(breeds[index]);
                     },
                     icon: const Tooltip(
                       waitDuration: Duration(milliseconds: 450),
@@ -74,7 +66,10 @@ class BreedsList extends StatelessWidget {
                   SizedBox(
                     width: AppSizes.points_40,
                     child: (hasSubBreed(breeds, index))
-                        ? const Icon(Icons.keyboard_arrow_right)
+                        ? Icon(
+                            Icons.keyboard_arrow_right,
+                            color: themeData.colorScheme.onBackground,
+                          )
                         : null,
                   ),
                 ],

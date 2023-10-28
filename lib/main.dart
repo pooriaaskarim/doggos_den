@@ -8,11 +8,18 @@ import 'infrastructure/repositories/network/doggo.repository.dart';
 
 void main() {
   runApp(
-    RepositoryProvider(
-      create: (final context) => DoggoRepository(),
+    MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(
+          create: (final context) => DoggoRepository(),
+        ),
+        RepositoryProvider(
+          create: (final context) => LocalRepository(),
+        ),
+      ],
       child: BlocProvider(
         create: (final context) => AppBloc(
-          localRepository: LocalRepository.instance(),
+          localRepository: RepositoryProvider.of<LocalRepository>(context),
           doggoRepository: RepositoryProvider.of<DoggoRepository>(context),
         ),
         child: const App(),

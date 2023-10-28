@@ -7,6 +7,7 @@ class HomeHeader extends StatelessWidget {
   Widget build(final BuildContext context) => SliverPersistentHeader(
         delegate: HomeHeaderDelegate(),
         pinned: true,
+        floating: true,
       );
 }
 
@@ -19,9 +20,10 @@ class HomeHeaderDelegate extends SliverPersistentHeaderDelegate {
   ) {
     final themeData = Theme.of(context);
 
-    final titleStyle = themeData.textTheme.displayLarge;
+    final titleStyle = themeData.textTheme.displaySmall;
     final titleSize =
         titleStyle!.fontSize! * ((maxExtent - shrinkOffset) / maxExtent);
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: AppSizes.points_8),
       decoration: BoxDecoration(
@@ -30,73 +32,55 @@ class HomeHeaderDelegate extends SliverPersistentHeaderDelegate {
           bottom: BorderSide(color: themeData.colorScheme.primary, width: .5),
         ),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Center(
-                  child: TextButton(
-                    onPressed: () {
-                      App.navigator?.pushNamed(AppRouteNames.home);
-                    },
-                    child: Text(
-                      "Doggo's Den",
-                      style: titleStyle.copyWith(
-                        color: themeData.colorScheme.primary,
-                        fontSize: titleSize >= AppSizes.points_24
-                            ? titleSize
-                            : AppSizes.points_24,
-                      ),
+      child: Padding(
+        padding: AppUtils.responsiveHorizontalPadding(context).add(
+          const EdgeInsets.symmetric(
+            vertical: AppSizes.points_12,
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Doggo's Den",
+                    style: titleStyle.copyWith(
+                      color: themeData.colorScheme.primary,
+                      fontSize: titleSize >= AppSizes.points_24
+                          ? titleSize
+                          : AppSizes.points_24,
                     ),
                   ),
-                ),
-                AppUtils.verticalSpacer(AppSizes.points_8),
-                Center(
-                  child: Text(
-                    'A Showroom for all earth Doggos!',
-                    style: themeData.textTheme.titleSmall
-                        ?.copyWith(color: themeData.colorScheme.secondary),
-                  ),
-                ),
-              ],
+                  if (shrinkOffset == 0)
+                    Text(
+                      '\n\nA Showroom for all earth Doggos!',
+                      style: themeData.textTheme.bodySmall
+                          ?.copyWith(color: themeData.colorScheme.secondary),
+                    ),
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: AppUtils.responsiveHorizontalPadding(context),
-            child: Row(
-              children: [
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    'Random Doggo',
-                    style: themeData.textTheme.labelLarge
-                        ?.copyWith(color: themeData.colorScheme.secondary),
-                  ),
-                ),
-                Expanded(child: AppUtils.horizontalSpacer()),
-                const ThemeToggleButton()
-              ],
-            ),
-          ),
-        ],
+            const ThemeToggleButton(),
+          ],
+        ),
       ),
     );
   }
 
   @override
-  double get maxExtent => AppSizes.points_64 * 3;
+  double get maxExtent => AppSizes.points_64 * 2;
 
   @override
-  double get minExtent => AppSizes.points_64 * 2;
+  double get minExtent => AppSizes.points_64;
 
   @override
   bool shouldRebuild(
     covariant final SliverPersistentHeaderDelegate oldDelegate,
   ) =>
-      false;
+      true;
 }

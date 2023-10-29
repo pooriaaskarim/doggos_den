@@ -16,7 +16,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(final BuildContext context) => BlocConsumer<AppBloc, AppState>(
         listener: (final context, final state) {
-          if (state is LoadedState) {
+          if (state is InitializedState) {
             App.navigator?.pushReplacementNamed(AppRouteNames.home);
           }
         },
@@ -43,7 +43,7 @@ class SplashScreen extends StatelessWidget {
   ) =>
       TextButton(
         onPressed: () {
-          BlocProvider.of<AppBloc>(context).add(FetchDoggos());
+          BlocProvider.of<AppBloc>(context).add(FetchBreeds());
         },
         child: Text(
           'Retry',
@@ -55,7 +55,7 @@ class SplashScreen extends StatelessWidget {
       Text(
         state is InitializingState
             ? "Initializing Doggo's Den"
-            : state is FetchingDoggosState
+            : state is FetchingBreedsState
                 ? 'Dog whistle noises in background...'
                 : state is ErrorState
                     ? 'Error occurred'

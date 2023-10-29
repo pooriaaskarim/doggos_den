@@ -10,106 +10,97 @@ class Body extends StatelessWidget {
     const willPopDuration = Duration(seconds: 3);
     int willPopRetries = 0;
 
-    return BlocProvider(
-      create: (final context) => DoggoCubit(
-        doggoRepository: RepositoryProvider.of<DoggoRepository>(context),
-      ),
-      child: BlocBuilder<AppBloc, AppState>(
-        builder: (final context, final appState) {
-          final breeds = appState.breeds;
-          final ThemeData themeData = Theme.of(context);
+    return BlocBuilder<AppBloc, AppState>(
+      builder: (final context, final appState) {
+        final breeds = appState.breeds;
+        final ThemeData themeData = Theme.of(context);
 
-          return BlocBuilder<DoggoCubit, DoggoState>(
-            builder: (final context, final doggoState) {
-              final doggoCubit = BlocProvider.of<DoggoCubit>(context);
+        return BlocBuilder<DoggoCubit, DoggoState>(
+          builder: (final context, final doggoState) {
+            final doggoCubit = BlocProvider.of<DoggoCubit>(context);
 
-              final activeSubBreed = doggoState.activeSubBreed;
-              final activeBreed = doggoState.activeBreed;
-              final images = doggoState.images;
+            final activeSubBreed = doggoState.activeSubBreed;
+            final activeBreed = doggoState.activeBreed;
+            final images = doggoState.images;
 
-              return WillPopScope(
-                onWillPop: () async {
-                  if (activeSubBreed != null) {
-                    doggoCubit.clearSubBreed();
-                    return false;
-                  } else if (activeBreed != null) {
-                    doggoCubit.clearBreed();
-                    return false;
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                          'Press BACK again to exit',
-                        ),
-                        duration: willPopDuration,
+            return WillPopScope(
+              onWillPop: () async {
+                if (activeSubBreed != null) {
+                  doggoCubit.clearSubBreed();
+                  return false;
+                } else if (activeBreed != null) {
+                  doggoCubit.clearBreed();
+                  return false;
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        'Press BACK again to exit',
                       ),
-                    );
-                    willPopRetries++;
-                    debugPrint(willPopRetries.toString());
-                    unawaited(
-                      Future.delayed(willPopDuration)
-                          .then((final value) => willPopRetries = 0),
-                    );
-                  }
-                  return willPopRetries > 1;
-                },
-                child: Stack(
-                  fit: StackFit.loose,
-                  children: [
-                    BreedsList(
-                      breeds: breeds,
+                      duration: willPopDuration,
                     ),
-                    if (_shouldShowSidePanel(
-                      activeSubBreed,
-                      activeBreed,
-                      doggoState,
-                    ))
-                      LayoutBuilder(
-                        builder: (final context, final constraints) =>
-                            Container(
-                          alignment: AlignmentDirectional.topEnd,
-                          color: Colors.transparent,
-                          child: Material(
-                            elevation: AppElevations.level_4,
-                            child: Ink(
-                              width: constraints.maxWidth * 0.9,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: AppSizes.points_8,
-                                vertical: AppSizes.points_4,
-                              ),
-                              decoration: BoxDecoration(
-                                color: themeData.colorScheme.background,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  _buildTitle(
-                                    activeBreed,
-                                    activeSubBreed,
-                                    themeData,
-                                  ),
-                                  Expanded(
-                                    child: doggoState is DoggoIdleState
-                                        ? _buildIdlePanel(images, activeBreed)
-                                        : doggoState is DoggoLoadingState
-                                            ? _buildLoadingPanel()
-                                            : doggoState is DoggoErrorState
-                                                ? _buildErrorPanel()
-                                                : const SizedBox.shrink(),
-                                  ),
-                                ],
-                              ),
+                  );
+                  willPopRetries++;
+                  unawaited(
+                    Future.delayed(willPopDuration)
+                        .then((final value) => willPopRetries = 0),
+                  );
+                }
+                return willPopRetries > 1;
+              },
+              child: Stack(
+                fit: StackFit.loose,
+                children: [
+                  BreedsList(
+                    breeds: breeds,
+                  ),
+                  if (_shouldShowSidePanel(
+                    doggoState,
+                  ))
+                    LayoutBuilder(
+                      builder: (final context, final constraints) => Container(
+                        alignment: AlignmentDirectional.topEnd,
+                        color: Colors.transparent,
+                        child: Material(
+                          elevation: AppElevations.level_4,
+                          child: Ink(
+                            width: constraints.maxWidth * 0.9,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppSizes.points_8,
+                              vertical: AppSizes.points_4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: themeData.colorScheme.background,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _buildTitle(
+                                  activeBreed,
+                                  activeSubBreed,
+                                  themeData,
+                                ),
+                                Expanded(
+                                  child: doggoState is DoggoIdleState
+                                      ? _buildIdlePanel(images, activeBreed)
+                                      : doggoState is DoggoLoadingState
+                                          ? _buildLoadingPanel()
+                                          : doggoState is DoggoErrorState
+                                              ? _buildErrorPanel()
+                                              : const SizedBox.shrink(),
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       ),
-                  ],
-                ),
-              );
-            },
-          );
-        },
-      ),
+                    ),
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 
@@ -154,14 +145,16 @@ class Body extends StatelessWidget {
       );
 
   bool _shouldShowSidePanel(
-    final SubBreed? activeSubBreed,
-    final Breed? activeBreed,
     final DoggoState doggoState,
-  ) =>
-      (doggoState is DoggoIdleState &&
-          (activeSubBreed != null || activeBreed != null)) ||
-      doggoState is DoggoErrorState ||
-      doggoState is DoggoLoadingState;
+  ) {
+    final activeSubBreed = doggoState.activeSubBreed;
+    final activeBreed = doggoState.activeBreed;
+
+    return (doggoState is DoggoIdleState &&
+            (activeSubBreed != null || activeBreed != null)) ||
+        doggoState is DoggoErrorState ||
+        doggoState is DoggoLoadingState;
+  }
 }
 
 ///IconButton to retrieve random Images

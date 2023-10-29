@@ -7,42 +7,14 @@ import 'application/app_bloc/app_bloc.dart';
 import 'infrastructure/config/routes/app.route_names.dart';
 import 'infrastructure/config/routes/app.routes.dart';
 import 'infrastructure/config/theme/app.theme.dart';
-import 'infrastructure/utils/app.utils.dart';
 import 'presentation/splash/screen.splash.dart';
 
-class App extends StatefulWidget {
+class App extends StatelessWidget {
   const App({super.key});
 
   static final GlobalKey<NavigatorState> _globalNavigatorKey =
       GlobalKey<NavigatorState>();
   static NavigatorState? navigator = _globalNavigatorKey.currentState;
-
-  static void rebuildApp(final BuildContext context) {
-    context.findAncestorStateOfType<_AppState>()?.rebuildApp(context);
-  }
-
-  @override
-  State<App> createState() => _AppState();
-}
-
-class _AppState extends State<App> {
-  @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<AppBloc>(context).add(InitializeApp());
-  }
-
-  @override
-  void dispose() {
-    BlocProvider.of<AppBloc>(context).close();
-    super.dispose();
-  }
-
-  void rebuildApp(final BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((final _) {
-      AppUtils.rebuildDescendantChildren(context);
-    });
-  }
 
   @override
   Widget build(final BuildContext context) => BlocBuilder<AppBloc, AppState>(
@@ -62,12 +34,10 @@ class _AppState extends State<App> {
             Locale('en', 'US'),
           ],
           scrollBehavior: const MaterialScrollBehavior().copyWith(
-            scrollbars: false,
+            scrollbars: true,
             dragDevices: {
               PointerDeviceKind.mouse,
               PointerDeviceKind.touch,
-              PointerDeviceKind.stylus,
-              PointerDeviceKind.unknown,
             },
           ),
           debugShowCheckedModeBanner: false,

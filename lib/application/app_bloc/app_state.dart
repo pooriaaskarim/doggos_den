@@ -20,6 +20,8 @@ abstract class AppState extends Equatable {
       ];
 }
 
+/// AppState: initial run
+/// empty [Breed]s list and [ThemeMode].system
 class InitializingState extends AppState {
   const InitializingState({
     super.breeds = const [],
@@ -35,63 +37,43 @@ class InitializingState extends AppState {
       );
 }
 
-class FetchingDoggosState extends AppState {
-  const FetchingDoggosState({
+/// AppState: Gathering [Breed]s list
+class FetchingBreedsState extends AppState {
+  const FetchingBreedsState({
     super.breeds = const [],
     super.themeMode = ThemeMode.system,
   });
 
   @override
-  FetchingDoggosState copyWith({
+  FetchingBreedsState copyWith({
     final List<Breed>? breeds,
     final ThemeMode? themeMode,
   }) =>
-      FetchingDoggosState(
+      FetchingBreedsState(
         breeds: breeds ?? this.breeds,
         themeMode: themeMode ?? this.themeMode,
       );
 }
 
-abstract class InitializedState extends AppState {
+/// AppState: App is Loaded with proper [ThemeMode] and [Breed]s list
+class InitializedState extends AppState {
   const InitializedState({
     required super.breeds,
     required super.themeMode,
   });
-}
 
-class LoadedState extends InitializedState {
-  const LoadedState({
-    required super.breeds,
-    required super.themeMode,
-  });
   @override
-  LoadedState copyWith({
+  InitializedState copyWith({
     final List<Breed>? breeds,
     final ThemeMode? themeMode,
   }) =>
-      LoadedState(
+      InitializedState(
         breeds: breeds ?? this.breeds,
         themeMode: themeMode ?? this.themeMode,
       );
 }
 
-class LoadingState extends InitializedState {
-  const LoadingState({
-    required super.breeds,
-    required super.themeMode,
-  });
-
-  @override
-  LoadingState copyWith({
-    final List<Breed>? breeds,
-    final ThemeMode? themeMode,
-  }) =>
-      LoadingState(
-        breeds: breeds ?? this.breeds,
-        themeMode: themeMode ?? this.themeMode,
-      );
-}
-
+/// AppState: Some Error occurred (during fetching [Breed]s list)
 class ErrorState extends AppState {
   const ErrorState({
     required super.breeds,

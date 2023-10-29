@@ -19,7 +19,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         _doggoRepository = doggoRepository,
         super(const InitializingState()) {
     on<InitializeApp>(onAppInitialization);
-    on<FetchDoggos>(onFetchDoggos);
+    on<FetchBreeds>(onFetchDoggos);
     on<ToggleThemeMode>(onToggleThemeMode);
   }
 
@@ -31,12 +31,12 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     final Emitter<AppState> emit,
   ) async {
     final ThemeMode themeMode = await _localRepository.getThemeMode();
-    add(FetchDoggos());
-    emit(FetchingDoggosState(themeMode: themeMode, breeds: state.breeds));
+    add(FetchBreeds());
+    emit(FetchingBreedsState(themeMode: themeMode, breeds: state.breeds));
   }
 
   FutureOr<void> onFetchDoggos(
-    final FetchDoggos event,
+    final FetchBreeds event,
     final Emitter<AppState> emit,
   ) async {
     final response = await _doggoRepository.getAllBreeds();
@@ -58,7 +58,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       }
     });
 
-    emit(LoadedState(breeds: breedsList, themeMode: state.themeMode));
+    emit(InitializedState(breeds: breedsList, themeMode: state.themeMode));
   }
 
   FutureOr<void> onToggleThemeMode(

@@ -16,11 +16,12 @@ import '../../infrastructure/config/theme/app.fonts.dart';
 import '../../infrastructure/repositories/network/doggo.repository.dart';
 import '../../infrastructure/utils/app.sizes.dart';
 import '../../infrastructure/utils/app.utils.dart';
+import '../shared/widgets/loading.dart';
 
 part 'widgets/body/body.dart';
-part 'widgets/body/widgets/breeds_list.dart';
-part 'widgets/body/widgets/images_list.dart';
-part 'widgets/body/widgets/sub_breeds_list.dart';
+part 'widgets/body/widgets/list.breeds.dart';
+part 'widgets/body/widgets/list.images.dart';
+part 'widgets/body/widgets/list.sub_breeds.dart';
 part 'widgets/footer/footer.dart';
 part 'widgets/header/header.dart';
 part 'widgets/header/widgets/button.theme_toggle.dart';
@@ -28,24 +29,21 @@ part 'widgets/header/widgets/button.theme_toggle.dart';
 class Home extends StatelessWidget {
   const Home({super.key});
 
+  static ScrollController scrollController = ScrollController();
   @override
-  Widget build(final BuildContext context) {
-    final scrollController = ScrollController();
-
-    return SafeArea(
-      child: Scaffold(
-        body: NestedScrollView(
-          controller: scrollController,
-          headerSliverBuilder: (final context, final innerBoxIsScrolled) => [
-            const HomeHeader(),
-          ],
-          body: Padding(
-            padding: AppUtils.responsiveHorizontalPadding(context),
-            child: const Body(),
+  Widget build(final BuildContext context) => SafeArea(
+        child: Scaffold(
+          body: NestedScrollView(
+            controller: scrollController,
+            headerSliverBuilder: (final context, final innerBoxIsScrolled) => [
+              const HomeHeader(),
+            ],
+            body: Padding(
+              padding: AppUtils.responsiveHorizontalPadding(context),
+              child: const Body(),
+            ),
           ),
+          bottomNavigationBar: const Footer(),
         ),
-        bottomNavigationBar: const Footer(),
-      ),
-    );
-  }
+      );
 }

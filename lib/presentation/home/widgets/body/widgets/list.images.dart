@@ -12,6 +12,13 @@ class ImagesList extends StatelessWidget {
   Widget build(final BuildContext context) {
     final themeData = Theme.of(context);
     final ScrollController scrollController = ScrollController();
+    scrollController.addListener(() {
+      if (scrollController.offset ==
+          scrollController.position.minScrollExtent) {
+        Home.scrollController
+            .animateTo(0, duration: Durations.short1, curve: Curves.bounceOut);
+      }
+    });
 
     return ListView.builder(
       shrinkWrap: true,
@@ -26,14 +33,14 @@ class ImagesList extends StatelessWidget {
           vertical: AppSizes.points_16,
           horizontal: AppSizes.points_8,
         ),
-        child: buildImage(index, themeData),
+        child: buildImage(images[index], themeData),
       ),
     );
   }
 
-  Widget buildImage(final int index, final ThemeData themeData) =>
+  Widget buildImage(final String imageUrl, final ThemeData themeData) =>
       Image.network(
-        images[index],
+        imageUrl,
         errorBuilder: (final context, final error, final stackTrace) => Center(
           child: Text(
             "Couldn't load image",
@@ -41,13 +48,7 @@ class ImagesList extends StatelessWidget {
           ),
         ),
         loadingBuilder: (final context, final child, final loadingProgress) =>
-            (loadingProgress != null)
-                ? const Center(
-                    child: CircularProgressIndicator(
-                      strokeWidth: 1,
-                    ),
-                  )
-                : child,
+            (loadingProgress != null) ? Loading() : child,
         frameBuilder: (
           final context,
           final child,

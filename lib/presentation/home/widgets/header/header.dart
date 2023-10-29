@@ -47,21 +47,8 @@ class HomeHeaderDelegate extends SliverPersistentHeaderDelegate {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "Doggo's Den",
-                    style: titleStyle.copyWith(
-                      color: themeData.colorScheme.primary,
-                      fontSize: titleSize >= AppSizes.points_24
-                          ? titleSize
-                          : AppSizes.points_24,
-                    ),
-                  ),
-                  if (shrinkOffset == 0)
-                    Text(
-                      '\n\nA Showroom for all earth Doggos!',
-                      style: themeData.textTheme.bodySmall
-                          ?.copyWith(color: themeData.colorScheme.secondary),
-                    ),
+                  _buildTitle(titleStyle, themeData, titleSize),
+                  if (shrinkOffset == 0) _buildSubTitle(themeData),
                 ],
               ),
             ),
@@ -71,6 +58,26 @@ class HomeHeaderDelegate extends SliverPersistentHeaderDelegate {
       ),
     );
   }
+
+  Widget _buildTitle(
+    final TextStyle titleStyle,
+    final ThemeData themeData,
+    final double titleSize,
+  ) =>
+      Text(
+        "Doggo's Den",
+        style: titleStyle.copyWith(
+          color: themeData.colorScheme.primary,
+          fontSize:
+              titleSize >= AppSizes.points_24 ? titleSize : AppSizes.points_24,
+        ),
+      );
+
+  Widget _buildSubTitle(final ThemeData themeData) => Text(
+        '\n\nA Showroom for all earth Doggos!',
+        style: themeData.textTheme.bodySmall
+            ?.copyWith(color: themeData.colorScheme.secondary),
+      );
 
   @override
   double get maxExtent => AppSizes.points_64 * 2;

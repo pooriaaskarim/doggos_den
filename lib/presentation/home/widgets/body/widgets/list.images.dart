@@ -48,7 +48,7 @@ class ImagesList extends StatelessWidget {
           ),
         ),
         loadingBuilder: (final context, final child, final loadingProgress) =>
-            (loadingProgress != null) ? Loading() : child,
+            (loadingProgress != null) ? const Loading() : child,
         frameBuilder: (
           final context,
           final child,

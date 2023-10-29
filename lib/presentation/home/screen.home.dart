@@ -13,7 +13,6 @@ import '../../application/doggo_cubit/doggo_cubit.dart';
 import '../../domain/models/breed.dart';
 import '../../infrastructure/config/theme/app.elevations.dart';
 import '../../infrastructure/config/theme/app.fonts.dart';
-import '../../infrastructure/repositories/network/doggo.repository.dart';
 import '../../infrastructure/utils/app.sizes.dart';
 import '../../infrastructure/utils/app.utils.dart';
 import '../shared/widgets/loading.dart';

@@ -18,13 +18,12 @@ class Breed extends BreedBase {
   final List<SubBreed> subBreeds;
 
   @override
-  String toString() {
-    return '''Breed{
+  String toString() => '''
+  Breed{
     name:$name,
     subBreeds: $subBreeds
     }
     ''';
-  }
 }
 
 class SubBreed extends BreedBase {

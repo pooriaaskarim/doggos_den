@@ -29,8 +29,10 @@ class InitializingState extends AppState {
   });
 
   @override
-  InitializingState copyWith(
-          {final List<Breed>? breeds, final ThemeMode? themeMode}) =>
+  InitializingState copyWith({
+    final List<Breed>? breeds,
+    final ThemeMode? themeMode,
+  }) =>
       InitializingState(
         breeds: breeds ?? this.breeds,
         themeMode: themeMode ?? this.themeMode,

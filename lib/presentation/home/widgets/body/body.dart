@@ -105,7 +105,9 @@ class Body extends StatelessWidget {
   }
 
   Widget _buildIdlePanel(
-          final List<String>? images, final Breed? activeBreed) =>
+    final List<String>? images,
+    final Breed? activeBreed,
+  ) =>
       (images != null)
           ? ImagesList(images: images)
           : (activeBreed != null)

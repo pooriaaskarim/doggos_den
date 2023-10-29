@@ -8,8 +8,8 @@ import '../../infrastructure/repositories/network/doggo.repository.dart';
 
 part 'doggo_state.dart';
 
-class DoggoBloc extends Cubit<DoggoState> {
-  DoggoBloc({
+class DoggoCubit extends Cubit<DoggoState> {
+  DoggoCubit({
     required final DoggoRepository doggoRepository,
   })  : _doggoRepository = doggoRepository,
         super(
@@ -42,7 +42,7 @@ class DoggoBloc extends Cubit<DoggoState> {
     );
   }
 
-  FutureOr<void> fetchAllImagesByBreed(final Breed breed) async {
+  Future<void> fetchAllImagesByBreed(final Breed breed) async {
     emit(DoggoLoadingState(activeBreed: breed));
 
     final images =
@@ -75,15 +75,16 @@ class DoggoBloc extends Cubit<DoggoState> {
     );
   }
 
-  FutureOr<void> fetchAllImagesBySubBreed(
+  Future<void> fetchAllImagesBySubBreed(
     final Breed breed,
     final SubBreed subBreed,
   ) async {
-    emit(DoggoLoadingState(
-      activeBreed: breed,
-      activeSubBreed: subBreed,
-    ));
-
+    emit(
+      DoggoLoadingState(
+        activeBreed: breed,
+        activeSubBreed: subBreed,
+      ),
+    );
     final images = await _doggoRepository.getAllImagesBySubBreed(
       state.activeBreed!.name,
       state.activeSubBreed!.name,
@@ -117,7 +118,7 @@ class DoggoBloc extends Cubit<DoggoState> {
     );
   }
 
-  FutureOr<void> fetchRandomByBreed(
+  Future<void> fetchRandomByBreed(
     final Breed breed,
   ) async {
     emit(DoggoLoadingState(activeBreed: breed));
@@ -153,7 +154,7 @@ class DoggoBloc extends Cubit<DoggoState> {
     );
   }
 
-  FutureOr<void> fetchRandomBySubBreed(
+  Future<void> fetchRandomBySubBreed(
     final Breed breed,
     final SubBreed subBreed,
   ) async {

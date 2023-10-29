@@ -30,88 +30,79 @@ abstract class NetworkRepository {
     }
   }
 
-  // Future<Either<DioException, Response>> post<T>(
-  //   final String api, {
-  //   final Map<String, dynamic>? headers,
-  //   final Map<String, dynamic>? queryParameters,
-  //   final Object? body,
-  // }) async {
-  //   try {
-  //     final Response<T> response = await _client.post<T>(
-  //       api,
-  //       options: Options(headers: headers),
-  //       queryParameters: queryParameters,
-  //       data: body,
-  //     );
-  //     return right(response);
-  //   } on DioException catch (e) {
-  //     return left(e);
-  //   }
-  // }
-  //
-  // Future<Either<DioException, Response>> put<T>(
-  //   final String api, {
-  //   final Map<String, dynamic>? headers,
-  //   final Map<String, dynamic>? queryParameters,
-  //   final Object? body,
-  // }) async {
-  //   try {
-  //     final Response<T> response = await _client.put<T>(
-  //       api,
-  //       options: Options(headers: headers),
-  //       queryParameters: queryParameters,
-  //       data: body,
-  //     );
-  //     return right(response);
-  //   } on DioException catch (e) {
-  //     return left(e);
-  //   }
-  // }
-  //
-  // Future<Either<DioException, Response>> patch<T>(
-  //   final String api, {
-  //   final Map<String, dynamic>? headers,
-  //   final Map<String, dynamic>? queryParameters,
-  //   final Object? body,
-  // }) async {
-  //   try {
-  //     final Response<T> response = await _client.patch<T>(
-  //       api,
-  //       options: Options(headers: headers),
-  //       queryParameters: queryParameters,
-  //       data: body,
-  //     );
-  //     return right(response);
-  //   } on DioException catch (e) {
-  //     return left(e);
-  //   }
-  // }
-  //
-  // Future<Either<DioException, Response>> delete<T>(
-  //   final String api, {
-  //   final Map<String, dynamic>? headers,
-  //   final Map<String, dynamic>? queryParameters,
-  //   final Object? body,
-  // }) async {
-  //   try {
-  //     final Response<T> response = await _client.delete<T>(
-  //       api,
-  //       options: Options(headers: headers),
-  //       queryParameters: queryParameters,
-  //       data: body,
-  //     );
-  //     return right(response);
-  //   } on DioException catch (e) {
-  //     return left(e);
-  //   }
-  // }
-}
-
-extension DioExceptionX on DioException {
-  Map<String, dynamic>? get errors {
-    if (response?.statusCode == 422) {
-      return response?.data['errors'];
+  Future<Either<DioException, Response>> post<T>(
+    final String api, {
+    final Map<String, dynamic>? headers,
+    final Map<String, dynamic>? queryParameters,
+    final Object? body,
+  }) async {
+    try {
+      final Response<T> response = await _client.post<T>(
+        api,
+        options: Options(headers: headers),
+        queryParameters: queryParameters,
+        data: body,
+      );
+      return right(response);
+    } on DioException catch (e) {
+      return left(e);
     }
-    return null;
+  }
+
+  Future<Either<DioException, Response>> put<T>(
+    final String api, {
+    final Map<String, dynamic>? headers,
+    final Map<String, dynamic>? queryParameters,
+    final Object? body,
+  }) async {
+    try {
+      final Response<T> response = await _client.put<T>(
+        api,
+        options: Options(headers: headers),
+        queryParameters: queryParameters,
+        data: body,
+      );
+      return right(response);
+    } on DioException catch (e) {
+      return left(e);
+    }
+  }
+
+  Future<Either<DioException, Response>> patch<T>(
+    final String api, {
+    final Map<String, dynamic>? headers,
+    final Map<String, dynamic>? queryParameters,
+    final Object? body,
+  }) async {
+    try {
+      final Response<T> response = await _client.patch<T>(
+        api,
+        options: Options(headers: headers),
+        queryParameters: queryParameters,
+        data: body,
+      );
+      return right(response);
+    } on DioException catch (e) {
+      return left(e);
+    }
+  }
+
+  Future<Either<DioException, Response>> delete<T>(
+    final String api, {
+    final Map<String, dynamic>? headers,
+    final Map<String, dynamic>? queryParameters,
+    final Object? body,
+  }) async {
+    try {
+      final Response<T> response = await _client.delete<T>(
+        api,
+        options: Options(headers: headers),
+        queryParameters: queryParameters,
+        data: body,
+      );
+      return right(response);
+    } on DioException catch (e) {
+      return left(e);
+    }
   }
 }

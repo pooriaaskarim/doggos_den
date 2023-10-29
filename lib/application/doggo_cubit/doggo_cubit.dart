@@ -8,6 +8,7 @@ import '../../infrastructure/repositories/network/doggo.repository.dart';
 
 part 'doggo_state.dart';
 
+/// Handles selecting [Breed]s and [SubBreed] and loading Doggo images
 class DoggoCubit extends Cubit<DoggoState> {
   DoggoCubit({
     required final DoggoRepository doggoRepository,
@@ -18,6 +19,7 @@ class DoggoCubit extends Cubit<DoggoState> {
 
   final DoggoRepository _doggoRepository;
 
+  /// sets a [Breed] as activeBreed
   void setBreed(
     final Breed breed,
   ) {
@@ -28,12 +30,14 @@ class DoggoCubit extends Cubit<DoggoState> {
     );
   }
 
+  /// Clears activeBreed, activeSubBreed and imagesList
   void clearBreed() {
     emit(
       const DoggoIdleState(),
     );
   }
 
+  /// Clears activeSubBreed and imagesList
   void clearSubBreed() {
     emit(
       DoggoIdleState(
@@ -42,6 +46,7 @@ class DoggoCubit extends Cubit<DoggoState> {
     );
   }
 
+  /// Sets activeBreed and loads all images based on that [Breed]
   Future<void> fetchAllImagesByBreed(final Breed breed) async {
     emit(DoggoLoadingState(activeBreed: breed));
 
@@ -75,6 +80,7 @@ class DoggoCubit extends Cubit<DoggoState> {
     );
   }
 
+  /// Sets activeBreed and subBreed, then loads all image based on that [Breed]/[SubBreed]
   Future<void> fetchAllImagesBySubBreed(
     final Breed breed,
     final SubBreed subBreed,
@@ -118,6 +124,7 @@ class DoggoCubit extends Cubit<DoggoState> {
     );
   }
 
+  /// Sets activeBreed and loads random image based on that [Breed]
   Future<void> fetchRandomByBreed(
     final Breed breed,
   ) async {
@@ -154,6 +161,7 @@ class DoggoCubit extends Cubit<DoggoState> {
     );
   }
 
+  /// Sets activeBreed and subBreed, then loads random image based on that [Breed]/[SubBreed]
   Future<void> fetchRandomBySubBreed(
     final Breed breed,
     final SubBreed subBreed,

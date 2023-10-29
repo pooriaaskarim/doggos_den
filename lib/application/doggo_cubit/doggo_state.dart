@@ -19,6 +19,7 @@ abstract class DoggoState extends Equatable {
       ];
 }
 
+///DoggoState: Waiting for action
 class DoggoIdleState extends DoggoState {
   const DoggoIdleState({
     super.images,
@@ -27,6 +28,7 @@ class DoggoIdleState extends DoggoState {
   });
 }
 
+///DoggoState: Some action was called and Cubit is waiting for it to finish
 class DoggoLoadingState extends DoggoState {
   const DoggoLoadingState({
     super.images,
@@ -35,6 +37,7 @@ class DoggoLoadingState extends DoggoState {
   });
 }
 
+///DoggoState: Some action was called and Cubit encountered error
 class DoggoErrorState extends DoggoState {
   const DoggoErrorState({
     required this.error,

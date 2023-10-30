@@ -24,14 +24,18 @@ class SplashScreen extends StatelessWidget {
           final themeData = Theme.of(context);
 
           return Scaffold(
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                buildLogo(themeData),
-                AppUtils.verticalSpacer(),
-                buildStateInfo(state, themeData),
-                if (state is ErrorState) buildRetryButton(context, themeData),
-              ],
+            body: AppUtils.responsiveContent(
+              context: context,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  buildLogo(themeData),
+                  AppUtils.verticalSpacer(),
+                  _buildStateInfo(state, themeData),
+                  if (state is ErrorState)
+                    _buildRetryButton(context, themeData),
+                ],
+              ),
             ),
           );
         },

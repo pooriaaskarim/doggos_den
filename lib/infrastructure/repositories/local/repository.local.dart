@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
@@ -22,7 +23,7 @@ class LocalRepository {
       ? Hive.box<M>(_instanceName)
       : await Hive.openBox<M>(
           _instanceName,
-          path: (await getApplicationDocumentsDirectory()).path,
+          path: kIsWeb ? null : (await getApplicationDocumentsDirectory()).path,
         );
 
   Future<ThemeMode> getThemeMode() async {

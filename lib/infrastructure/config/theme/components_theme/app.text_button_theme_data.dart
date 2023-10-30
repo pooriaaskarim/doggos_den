@@ -8,14 +8,6 @@ class AppTextButtonThemeData extends TextButtonThemeData {
   AppTextButtonThemeData(final ColorScheme colorScheme)
       : super(
           style: ButtonStyle(
-            backgroundColor:
-                const MaterialStatePropertyAll<Color>(Colors.transparent),
-            foregroundColor:
-                const MaterialStatePropertyAll<Color>(Colors.transparent),
-            overlayColor:
-                const MaterialStatePropertyAll<Color>(Colors.transparent),
-            shadowColor:
-                const MaterialStatePropertyAll<Color>(Colors.transparent),
             padding: const MaterialStatePropertyAll(
               EdgeInsets.symmetric(
                 vertical: AppSizes.points_12,
@@ -29,6 +21,7 @@ class AppTextButtonThemeData extends TextButtonThemeData {
                     MaterialState.hovered,
                     MaterialState.focused,
                     MaterialState.disabled,
+                    MaterialState.selected,
                   }.contains,
                 )) {
                   return AppElevations.level_0;
@@ -72,29 +65,18 @@ class AppTextButtonThemeData extends TextButtonThemeData {
                 return colorScheme.primary;
               },
             ),
-            side:
-                MaterialStateProperty.resolveWith<BorderSide?>((final states) {
-              if (states.any(
-                {
-                  MaterialState.hovered,
-                }.contains,
-              )) {
-                return BorderSide(color: colorScheme.primary, width: 1);
-              }
-              if (states.any(
-                {
-                  MaterialState.pressed,
-                  MaterialState.selected,
-                  MaterialState.dragged,
-                }.contains,
-              )) {
-                return BorderSide(color: colorScheme.primary, width: 4);
-              } else {
-                return null;
-              }
-            }),
             shape: MaterialStateProperty.resolveWith<OutlinedBorder?>(
                 (final states) {
+              if (states.any(
+                {
+                  MaterialState.disabled,
+                }.contains,
+              )) {
+                return const ContinuousRectangleBorder(
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(AppSizes.points_0)),
+                );
+              }
               if (states.any(
                 {
                   MaterialState.hovered,
@@ -109,15 +91,15 @@ class AppTextButtonThemeData extends TextButtonThemeData {
                   MaterialState.pressed,
                   MaterialState.selected,
                   MaterialState.dragged,
+                  MaterialState.focused,
                 }.contains,
               )) {
                 return LinearBorder.bottom(
                   side: BorderSide(color: colorScheme.primary, width: 2),
                 );
               } else {
-                return const ContinuousRectangleBorder(
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(AppSizes.points_0)),
+                return LinearBorder.bottom(
+                  side: BorderSide(color: colorScheme.primary, width: .3),
                 );
               }
             }),

@@ -37,7 +37,7 @@ class SplashScreen extends StatelessWidget {
         },
       );
 
-  Widget buildRetryButton(
+  Widget _buildRetryButton(
     final BuildContext context,
     final ThemeData themeData,
   ) =>
@@ -51,7 +51,7 @@ class SplashScreen extends StatelessWidget {
         ),
       );
 
-  Widget buildStateInfo(final AppState state, final ThemeData themeData) =>
+  Widget _buildStateInfo(final AppState state, final ThemeData themeData) =>
       Text(
         state is InitializingState
             ? "Initializing Doggo's Den"
